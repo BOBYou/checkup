@@ -9,6 +9,7 @@ import (
   "strings"
 	"fmt"
 	"flag"
+  "strconv"
 	"os/exec"
 	"github.com/gaochao1/sw"
 	"github.com/hel2o/checkup/g"
@@ -64,13 +65,13 @@ func Interval(ips []string) {
   f := float64(fails) / float64(len(ips))
   log.Println("iptables: ",iptables)
 
-	if f >= 0.5 && iptables == false{
+	if f >= g.Config().Checkup.FailureRate && iptables == false{
 		Iptables("sh/input")
 
     urlData := make(map[string][]string, 5)
     urlData["host"] = []string{g.Config().Checkup.HostName}
-    urlData["times"] = []string{string(len(ips))}
-    urlData["errors"] = []string{string(fails)}
+    urlData["times"] = []string{strconv.Itoa(len(ips)) }
+    urlData["errors"] = []string{strconv.Itoa(fails)}
     urlData["status"] = []string{"插入iptables"}
     urlData["do"] = []string{"add reject"}
 
@@ -81,7 +82,7 @@ func Interval(ips []string) {
 
     log.Println("intput")
 
-	}else if f < 0.5 && iptables == true {
+	}else if f < g.Config().Checkup.FailureRate  && iptables == true {
 		Iptables("sh/remove")
 
     urlData := make(map[string][]string, 5)
