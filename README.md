@@ -7,9 +7,8 @@ cd 到checkup目录下
 ./control status
 ## 其它说明
 ./control build|pack|start|stop|restart|status|tail|version
-# 配置文件cfg.json说明
 ```
-
+# 配置文件cfg.json说明
 ```
 {
 	"checkup":{
