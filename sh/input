@@ -1,0 +1,2 @@
+#!/bin/sh
+/sbin/iptables -I INPUT 1 -s 192.168.99.17/30 -m state --state NEW -m tcp -p tcp -m multiport --dports 80,81,88,100,1100,2525,8099 -j REJECT -m comment --comment "reject keepalived connect"
