@@ -1,3 +1,4 @@
+##功能：自动检测你指定的IP组，当检测到你指定的失败率后会执行插入iptables，恢复时删除iptables 配置keepalived的检测机制使用
 # 使用
 ```
 ## 启动 要root权限
