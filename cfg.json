@@ -4,6 +4,7 @@
 		"interval":10,
 		"pingTimeout":300,
 		"pingRetry":4,
+		"failureRate":0.8,
 		"fastPingMode": false,
 		"postUrl": "http://192.168.99.16:8000",
 		"ipRange":[
