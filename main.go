@@ -61,11 +61,13 @@ func Interval(ips []string, hostName string) {
 	}
 
 	for _, ch := range chs {
+		t2 := time.Now()
 		Result := <- ch
 		if Result.Rtt == -1{
 			fails++
 		}
-		log.Println("IP:",Result.Ip,"--Ping:",Result.Rtt)
+		log.Println("IP:", Result.Ip, "	Rtt:", Result.Rtt, "	Cost:", time.Since(t2))
+		//log.Println("Runing time: ", time.Since(t2))
 	}
   f := float64(fails) / float64(len(ips))
   log.Println("iptables: ",iptables)
@@ -104,7 +106,7 @@ func Interval(ips []string, hostName string) {
   }
 
 	elapsed := time.Since(t1)
-	log.Println("Runing time: ", elapsed," Fails：",fails)
+	log.Println("Runing time: ", elapsed," Fails：", fails, "\n")
 }
 
 func GoPing(ch chan Ping, ip string) {
