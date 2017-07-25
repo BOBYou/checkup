@@ -1,6 +1,6 @@
 {
 	"checkup":{
-		"hostName":"自定义名称",
+		"hostName":"",
 		"interval":10,
 		"pingTimeout":200,
 		"pingRetry":2,

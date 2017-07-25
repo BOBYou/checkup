@@ -35,15 +35,20 @@ func main() {
 	g.MyLog()
 	g.ParseConfig(*cfg)
 	CheckupIps := AllCheckupIp()
-
+	var HostName string
+	if g.Config().Checkup.HostName == "" {
+		HostName, _ = os.Hostname()
+	}else{
+		HostName = g.Config().Checkup.HostName
+	}
 
 	for {
-		go Interval(CheckupIps)
+		go Interval(CheckupIps,HostName)
 		time.Sleep(time.Duration(g.Config().Checkup.Interval) * time.Second)
 	}
 }
 
-func Interval(ips []string) {
+func Interval(ips []string, hostName string) {
 	t1 := time.Now()
 	fails := 0
   iptables := CheckIptable()
@@ -66,10 +71,10 @@ func Interval(ips []string) {
   log.Println("iptables: ",iptables)
 
 	if f >= g.Config().Checkup.FailureRate && iptables == false{
-    
+
 		Iptables("sh/input")
     urlData_input := make(map[string][]string, 2)
-    content_input := g.Config().Checkup.HostName + "\nPing次数：" + strconv.Itoa(len(ips)) + "\n失败次数：" + strconv.Itoa(fails) + "\n执行操作：Add Reject\n" + "时间：" + time.Now().Format("2006-01-02 15:04:05") + "\n以上内容通过SendWeChat_Api发送"
+    content_input := hostName + "\nPing次数：" + strconv.Itoa(len(ips)) + "\n失败次数：" + strconv.Itoa(fails) + "\n执行操作：Add Reject\n" + "时间：" + time.Now().Format("2006-01-02 15:04:05") + "\n以上内容通过SendWeChat_Api发送"
     urlData_input["content"] = []string{content_input}
     urlData_input["to"] = []string{g.Config().Checkup.To}
 
@@ -84,7 +89,7 @@ func Interval(ips []string) {
 
 		Iptables("sh/remove")
     urlData_remove := make(map[string][]string, 2)
-    content_remove := g.Config().Checkup.HostName + "\nPing次数：" + strconv.Itoa(len(ips)) + "\n失败次数：" + strconv.Itoa(fails) + "\n执行操作：Remove Reject\n" + "时间：" + time.Now().Format("2006-01-02 15:04:05") + "\n以上内容通过SendWeChat_Api发送"
+    content_remove := hostName + "\nPing次数：" + strconv.Itoa(len(ips)) + "\n失败次数：" + strconv.Itoa(fails) + "\n执行操作：Remove Reject\n" + "时间：" + time.Now().Format("2006-01-02 15:04:05") + "\n以上内容通过SendWeChat_Api发送"
     urlData_remove["content"] = []string{content_remove}
     urlData_remove["to"] = []string{g.Config().Checkup.To}
 
