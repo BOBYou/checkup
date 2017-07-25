@@ -19,6 +19,7 @@ cd 到checkup目录下
 		"pingRetry":4, //ping检测重复次数
 		"fastPingMode": false,//是否开启false模式
 		"failureRate":0.8,//ipRange内的地址达到80%都不通时就会执行add iptables
+		"to":"rh.wang|jzh.lin",//执行操作后微信消息发送给谁
 		"postUrl": "http://192.168.99.16:8000", //发送微信报警的API
 		"ipRange":[ //要检测的节点IP列表,可以上多个哦
 			"192.168.99.233",

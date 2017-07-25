@@ -66,37 +66,32 @@ func Interval(ips []string) {
   log.Println("iptables: ",iptables)
 
 	if f >= g.Config().Checkup.FailureRate && iptables == false{
+    
 		Iptables("sh/input")
+    urlData_input := make(map[string][]string, 2)
+    content_input := g.Config().Checkup.HostName + "\nPing次数：" + strconv.Itoa(len(ips)) + "\n失败次数：" + strconv.Itoa(fails) + "\n执行操作：Add Reject\n" + "时间：" + time.Now().Format("2006-01-02 15:04:05") + "\n以上内容通过SendWeChat_Api发送"
+    urlData_input["content"] = []string{content_input}
+    urlData_input["to"] = []string{g.Config().Checkup.To}
 
-    urlData := make(map[string][]string, 5)
-    urlData["host"] = []string{g.Config().Checkup.HostName}
-    urlData["times"] = []string{strconv.Itoa(len(ips)) }
-    urlData["errors"] = []string{strconv.Itoa(fails)}
-    urlData["status"] = []string{"插入iptables"}
-    urlData["do"] = []string{"add reject"}
-
-    _, err := g.Post(g.Config().Checkup.PostUrl,urlData)
+    _, err := g.Post(g.Config().Checkup.PostUrl,urlData_input)
     if err != nil {
-      fmt.Printf("error: %v", err)
+      log.Println("error: %v", err)
     }
 
     log.Println("intput")
 
 	}else if f < g.Config().Checkup.FailureRate  && iptables == true {
+
 		Iptables("sh/remove")
+    urlData_remove := make(map[string][]string, 2)
+    content_remove := g.Config().Checkup.HostName + "\nPing次数：" + strconv.Itoa(len(ips)) + "\n失败次数：" + strconv.Itoa(fails) + "\n执行操作：Remove Reject\n" + "时间：" + time.Now().Format("2006-01-02 15:04:05") + "\n以上内容通过SendWeChat_Api发送"
+    urlData_remove["content"] = []string{content_remove}
+    urlData_remove["to"] = []string{g.Config().Checkup.To}
 
-    urlData := make(map[string][]string, 5)
-    urlData["host"] = []string{g.Config().Checkup.HostName}
-    urlData["times"] = []string{string(len(ips))}
-    urlData["errors"] = []string{string(fails)}
-    urlData["status"] = []string{"删除iptables"}
-    urlData["do"] = []string{"remove reject"}
-
-    _, err := g.Post(g.Config().Checkup.PostUrl,urlData)
+    _, err := g.Post(g.Config().Checkup.PostUrl,urlData_remove)
     if err != nil {
-      fmt.Printf("error: %v", err)
+      log.Println("error: %v", err)
     }
-
 
     log.Println("remove")
 	}else {
