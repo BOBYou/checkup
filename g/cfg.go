@@ -20,6 +20,7 @@ type CheckupConfig struct {
 	HostName string    `json:"hostName"`
 	FailureRate float64	`json:"failureRate"`
 	To	string `json:"to"`
+	FailsInterval int `json:"failsInterval"`
 }
 
 
