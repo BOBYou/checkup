@@ -1,4 +1,4 @@
-##功能：自动检测你指定的IP组，当检测到你指定的失败率后会执行插入iptables，恢复时删除iptables 配置keepalived的检测机制使用
+## 功能：自动检测你指定的IP组，当检测到你指定的失败率后会执行插入iptables，恢复时删除iptables 配置keepalived的检测机制使用
 # 使用
 ```
 ## 启动 要root权限
@@ -18,7 +18,8 @@ cd 到checkup目录下
 		"pingTimeout":300, //检测单个节点时超时时长
 		"pingRetry":4, //ping检测重复次数
 		"fastPingMode": false,//是否开启false模式
-		"failureRate":0.8,//ipRange内的地址达到80%都不通时就会执行add iptables
+		"failureRate":0.8,
+		"failsInterval":2,//当连续的interval失败次数到到failsInterval且failureRate达到设定值时就会执行操作
 		"to":"rh.wang|jzh.lin",//执行操作后微信消息发送给谁
 		"postUrl": "http://192.168.99.16:8000", //发送微信报警的API
 		"ipRange":[ //要检测的节点IP列表,可以上多个哦
