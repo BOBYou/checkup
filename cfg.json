@@ -2,9 +2,10 @@
 	"checkup":{
 		"hostName":"",
 		"interval":10,
-		"pingTimeout":200,
-		"pingRetry":2,
-		"failureRate":0.8,
+		"pingTimeout":300,
+		"pingRetry":1,
+		"failureRate":0.9,
+		"failsInterval":2,
 		"fastPingMode": false,
 		"to":"rh.wang|jzh.lin",
 		"postUrl": "http://192.168.99.14:8000/SendWeChat_Api.php",
