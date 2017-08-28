@@ -1,15 +1,14 @@
 package g
 
 import (
-	"strings"
+	"io/ioutil"
+	"log"
 	"net/http"
-  "log"
-  "io/ioutil"
-  "net/url"
+	"net/url"
+	"strings"
 )
 
-
-func Post(url string, urlData url.Values ) (string,error){
+func Post(url string, urlData url.Values) (string, error) {
 
 	s := urlData.Encode()
 
@@ -34,5 +33,5 @@ func Post(url string, urlData url.Values ) (string,error){
 		log.Printf("ioutil.ReadAll() error: %v\n", err)
 	}
 
-  return string(data),err
+	return string(data), err
 }

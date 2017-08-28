@@ -8,26 +8,21 @@ import (
 	"github.com/toolkits/file"
 )
 
-
-
 type CheckupConfig struct {
-	IpRange []string `json:"ipRange"`
-	PingTimeout int `json:"pingTimeout"`
-	PingRetry   int `json:"pingRetry"`
-	FastPingMode	bool	`json:"fastPingMode"`
-	Interval int    `json:"interval"`
-	PostUrl string    `json:"postUrl"`
-	HostName string    `json:"hostName"`
-	FailureRate float64	`json:"failureRate"`
-	To	string `json:"to"`
-	FailsInterval int `json:"failsInterval"`
+	IpRange       []string `json:"ipRange"`
+	PingTimeout   int      `json:"pingTimeout"`
+	PingRetry     int      `json:"pingRetry"`
+	FastPingMode  bool     `json:"fastPingMode"`
+	Interval      int      `json:"interval"`
+	PostUrl       string   `json:"postUrl"`
+	HostName      string   `json:"hostName"`
+	FailureRate   float64  `json:"failureRate"`
+	To            string   `json:"to"`
+	FailsInterval int      `json:"failsInterval"`
 }
 
-
-
-
 type GlobalConfig struct {
-	Checkup      *CheckupConfig      `json:"checkup"`
+	Checkup *CheckupConfig `json:"checkup"`
 }
 
 var (
@@ -41,7 +36,6 @@ func Config() *GlobalConfig {
 	defer lock.RUnlock()
 	return config
 }
-
 
 func ParseConfig(cfg string) {
 	if cfg == "" {
