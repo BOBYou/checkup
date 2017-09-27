@@ -8,7 +8,7 @@
     "failsInterval": 3,
     "fastPingMode": false,
     "to": "rh.wang|jzh.lin",
-    "postUrl": "http://192.168.99.14:8000/SendWeChat_Api.php",
+    "postUrl": "http://192.168.99.13:8000",
     "ipRange": [
       "114.114.114.114",
       "218.107.49.162",
